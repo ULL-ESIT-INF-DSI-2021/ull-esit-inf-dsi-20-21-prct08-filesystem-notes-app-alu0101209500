@@ -1,5 +1,6 @@
 {
     "entryPoints":[
+        "./src/noteClass.ts"
     ],
     "out": "./docs"
 }

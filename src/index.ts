@@ -72,7 +72,11 @@ yargs.command({
       }
     },
   });
-  yargs.command({
+
+/**
+ * Modifies a note command
+ */
+yargs.command({
     command: 'mod',
     describe: 'Modify an existing',
     builder: {
@@ -111,7 +115,11 @@ yargs.command({
       }
     },
   });
-  yargs.command({
+
+/**
+ * Print list of notes command
+ */
+yargs.command({
     command: 'ls',
     describe: 'List the notes of a user',
     builder: {
@@ -130,7 +138,11 @@ yargs.command({
       }
     },
   });
-  yargs.command({
+
+/**
+ * Read a note command
+ */
+yargs.command({
     command: 'read',
     describe: 'Read a note',
     builder: {
