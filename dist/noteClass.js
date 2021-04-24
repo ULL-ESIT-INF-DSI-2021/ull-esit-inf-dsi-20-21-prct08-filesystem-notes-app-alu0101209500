@@ -3,13 +3,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.NoteClass = void 0;
 const filesys = require("fs");
 const chalk = require("chalk");
+/**
+ * Clase para manipular notas
+ */
 class NoteClass {
+    /**
+     * Constructor de la clase. Recibe el nombre del usuario cuyas notas serán manipuladas.
+     * @param user Usuario cuyas notas serán manipuladas
+     */
     constructor(user) {
         this.user = user;
     }
+    /**
+     * Dadas las propiedades de una nota, genera una cadena String con dicha información representada con la sintaxis de JSON.
+     * @param title Título de la nota
+     * @param body Contenido de la nota
+     * @param color Color con el que imprimir la nota
+     */
     getJSON(title, body, color) {
         return `{\n\t\"title\":\"${title}\",\n\t\"body\":\"${body}\",\n\t\"color\":\"${color}\"\n}`;
     }
+    /**
+     * Crea una nueva nota que se almacena en un fichero JSON. Si la nota ya existe emite un mensaje de error.
+     * @param title Título de la nota
+     * @param body Contenido de la nota
+     * @param color Color con el que imprimir la nota
+     */
     addNote(title, body, color) {
         if (!filesys.existsSync(`./files/${this.user}`)) {
             filesys.mkdirSync(`./files/${this.user}`);
@@ -22,6 +41,10 @@ class NoteClass {
             console.log(chalk.green("Succesfully created!"));
         }
     }
+    /**
+     * Borra una nota. Si la nota no existe emite un mensaje de error.
+     * @param title Título de la nota
+     */
     rmNote(title) {
         if (filesys.existsSync(`./files/${this.user}/${title}.json`)) {
             filesys.rmSync(`./files/${this.user}/${title}.json`);
@@ -30,6 +53,9 @@ class NoteClass {
             console.log(chalk.red("That note does not exist."));
         }
     }
+    /**
+     * Lista todas las notas del usuario imprimiendo el nombre de cada nota con el color indicado en su contenido.
+     */
     lsNote() {
         if (!filesys.existsSync(`./files/${this.user}`)) {
             console.log(chalk.red(`User ${this.user} has no notes`));
@@ -63,6 +89,10 @@ class NoteClass {
             }
         }
     }
+    /**
+     * Lee una nota. Si la nota no existe emite un mensaje de error.
+     * @param title Título de la nota.
+     */
     readNote(title) {
         if (filesys.existsSync(`./files/${this.user}/${title}.json`)) {
             let jsonobj = JSON.parse(String(filesys.readFileSync(`./files/${this.user}/${title}.json`)));
@@ -88,6 +118,13 @@ class NoteClass {
             console.log(chalk.red("That note does not exist."));
         }
     }
+    /**
+     * Modifica una nota. Si la nota no existe emite un mensaje de error.
+     * @param title Título de la nota
+     * @param ntitle Opcional - Nuevo título.
+     * @param body Opcional - Nuevo body.
+     * @param color Opcional - Nuevo color
+     */
     modifyNote(title, ntitle, body, color) {
         if (filesys.existsSync(`./files/${this.user}/${title}.json`)) {
             let jsonobj = JSON.parse(String(filesys.readFileSync(`./files/${this.user}/${title}.json`)));

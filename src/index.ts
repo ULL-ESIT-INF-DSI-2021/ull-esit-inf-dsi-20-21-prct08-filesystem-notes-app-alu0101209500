@@ -108,7 +108,11 @@ yargs.command({
     },
     handler(argv) {
       if ((typeof argv.title === 'string')&&(typeof argv.user === 'string')) {
-        new NoteClass(argv.user).modifyNote(argv.title, argv.ntitle, argv.body, argv.color);
+        if (argv.color == undefined || ["red", "green", "blue", "yellow"].filter((v) => (v == argv.color)).length > 0){
+          new NoteClass(argv.user).modifyNote(argv.title, argv.ntitle, argv.body, argv.color);
+        } else {
+            console.log(chalk.red("Color not valid"));
+        }
       }
       else{
         console.log(chalk.red("Invalid type for the params"));
